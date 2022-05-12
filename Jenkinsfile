@@ -1,21 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('test') {
+    stage('build') {
       steps {
-        sh 'heloo world'
+        sh '''pwd
+date'''
       }
     }
 
-    stage('build') {
-      steps {
-        echo 'hello world'
+    stage('test') {
+      parallel {
+        stage('test') {
+          steps {
+            echo 'test step'
+          }
+        }
+
+        stage('test par') {
+          steps {
+            echo 'test par'
+          }
+        }
+
       }
     }
 
     stage('deploy') {
       steps {
-        echo 'hello world'
+        echo 'deploy'
+        sleep 13
       }
     }
 
